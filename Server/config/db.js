@@ -1,6 +1,15 @@
-import mongoose, { mongo } from "mongoose";
-const connectdb = async ()=>{
-mongoose.set('strictQuery',true);
-mongoose.connect('mongodb+srv://awaismalik:eUVERLl3BwiFjZ62@cluster0.rfkdo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(()=>{console.log('Mongodb Connect')}).catch((err)=>{console.log(err)})
-}
+import mongoose from "mongoose";
+
+const connectdb = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://awais:Awais12345@cluster0.roekkkp.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    );
+
+    console.log("✅ MongoDB Connected");
+  } catch (err) {
+    console.error("❌ MongoDB Error:", err);
+  }
+};
+
 export default connectdb;
