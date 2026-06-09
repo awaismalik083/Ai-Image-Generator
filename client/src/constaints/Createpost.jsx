@@ -25,13 +25,16 @@ const CreatePost = () => {
       try {
         setLoading(true);
 
-        const response = await fetch("http://localhost:3000/api/v1/post", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "https://ai-image-generator2.onrender.com/api/v1/post",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form),
           },
-          body: JSON.stringify(form),
-        });
+        );
 
         const result = await response.json();
 
@@ -51,20 +54,23 @@ const CreatePost = () => {
     if (form.prompt) {
       try {
         setGeneratingImg(true);
-        const response = await fetch("http://localhost:3000/api/v1/stable", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "https://ai-image-generator2.onrender.com/api/v1/stable",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ prompt: form.prompt }),
           },
-          body: JSON.stringify({ prompt: form.prompt }),
-        });
+        );
 
         const arrayBuffer = await response.arrayBuffer();
         const base64String = btoa(
           new Uint8Array(arrayBuffer).reduce(
             (data, byte) => data + String.fromCharCode(byte),
-            ""
-          )
+            "",
+          ),
         );
 
         setForm({ ...form, photo: `data:image/png;base64,${base64String}` });
