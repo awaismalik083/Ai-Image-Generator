@@ -34,12 +34,15 @@ const Home = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch("http://localhost:3000/api/v1/post", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "https://ai-image-generator2.onrender.com/api/v1/post",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
           },
-        });
+        );
 
         if (!response.ok) {
           throw new Error(`Failed to fetch posts: ${response.status}`);
@@ -73,7 +76,7 @@ const Home = () => {
       const searchResults = allPosts.filter(
         (item) =>
           item.name?.toLowerCase().includes(value.toLowerCase()) ||
-          item.prompt?.toLowerCase().includes(value.toLowerCase())
+          item.prompt?.toLowerCase().includes(value.toLowerCase()),
       );
       setSearchedResults(searchResults);
     }, 500);
@@ -136,8 +139,8 @@ const Home = () => {
                   searchText
                     ? "No matching posts found"
                     : allPosts.length === 0
-                    ? "No posts available"
-                    : ""
+                      ? "No posts available"
+                      : ""
                 }
               />
             </div>
